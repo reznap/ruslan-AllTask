@@ -1,19 +1,5 @@
 <?php
-$user = 'battalov_userDB';
-$pass = '123456789!Q';
-
-
-try {
-    $pdo = new PDO('mysql:host=srv-pleskdb23.ps.kz:3306;dbname=battalov_dbMarlim', $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    exit($e->getMessage());
-};
-
-$result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
-
-
-
+    require_once 'connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +58,7 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Задание №1 с помощю <code>foreach</code>
+                            Задание №1.3 с помощю <code>while</code>
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -86,21 +72,17 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                             </div>
                           
                             <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
-                                <?php
-                                    for ($i=0; $i <= 1; $i++) { 
-                                        foreach ($result as $key => $row) { 
-                                            if ($key == $i) { ?>
-                                                <h2><?php echo $row['title']; ?></h2>
-                                                <p class="mb-g"><?php echo $row['text']; ?></p>
-                                            <?php } else { ?>
-                                                <h2><?php echo $row['title']; ?></h2>
-                                                <p class="mb-g"><?php echo $row['text']; ?></p>
-
-                                        <?php }
-                                      
-                                    };
-                                    }
-                                ?>
+                                <h2>Privacy</h2>
+                                <p class="mb-g">
+                                    Your privacy is important to us at SmartAdmin and the protection, confidentiality and integrity of your personal data are our prime concerns.
+                                    We will only use your personal information to administer your account, provide the products and services you have requested from us, and to keep you informed about our products and services (if you have consented to this).
+                                    We only use your data for the purposes for which it was collected and, where relevant, to meet local legal obligations.
+                                    We will retain your personal information only for as long as is necessary for the purposes for which the information was collected, or as long as is required pursuant to law.
+                                </p>
+                                <h3>Cookies and other similar technologies</h3>
+                                <p>
+                                    We collect certain data through cookies and similar technologies (e.g. web beacons, tags, device identifiers). Cookies are text files placed on your computer to collect standard internet log information and visitor behaviour information. This information is used to track visitor use of the website and to compile statistical reports on website activity. We register your interaction with our services in order to improve our website, content and services. Our use of such technologies and the data collected is described in more detail in our Cookie Policy. You can manage your cookie preferences through your browser settings.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +95,7 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Задание
+                            Задание №2
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -128,6 +110,7 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                                     <i>Последний элемент должен иметь класс <code>active</code> и не иметь ссылки. </i>
                                 </p>
                             </div>
+                            
                             <ol class="breadcrumb page-breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Главная</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">PHP</a></li>
@@ -142,7 +125,7 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Задание
+                            Задание №3
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -165,19 +148,21 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
                                     <ul id="js-list-msg" class="list-group px-2 pb-2 js-list-filter">
-                                        <li class="list-group-item">
-                                            <span data-filter-tags="reports file">Reports</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span data-filter-tags="analytics graphs">Analytics</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span data-filter-tags="export download">Export</span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span data-filter-tags="storage">Storage</span>
-                                        </li>
+                                        <?php
+                                            foreach ($result as $key => $value) { ?>
+                                                <li class="list-group-item">
+                                                    <?php
+                                                        foreach ($value as $key2 => $value2) { ?>
+                                                            <span data-filter-tags="<?php if ($key2 == 'tag') {echo $value2;} ?>"><?php if ($key2 == 'item') {echo $value2;} ?></span>
+                                                            
+                                                        <?php }
+                                                    ?>
+                                                </li>
+                                                
+                                            <?php }
+                                        ?>
                                     </ul>
+                                    
                                     <div class="filter-message js-filter-message mt-0 fs-sm"></div>
                                 </div>
                             </div>
@@ -190,7 +175,7 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Задание
+                            Задание №4
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -206,34 +191,21 @@ $result = $pdo->query("SELECT * FROM `privacyPolicy`", PDO::FETCH_ASSOC);
 
                                 </p>
                             </div>
-                            <div class="d-flex mt-2">
-                                My Tasks
-                                <span class="d-inline-block ml-auto">130 / 500</span>
-                            </div>
-                            <div class="progress progress-sm mb-3">
-                                <div class="progress-bar bg-fusion-400" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex">
-                                Transfered
-                                <span class="d-inline-block ml-auto">440 TB</span>
-                            </div>
-                            <div class="progress progress-sm mb-3">
-                                <div class="progress-bar bg-success-500" role="progressbar" style="width: 34%;" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex">
-                                Bugs Squashed
-                                <span class="d-inline-block ml-auto">77%</span>
-                            </div>
-                            <div class="progress progress-sm mb-3">
-                                <div class="progress-bar bg-info-400" role="progressbar" style="width: 77%;" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex">
-                                User Testing
-                                <span class="d-inline-block ml-auto">7 days</span>
-                            </div>
-                            <div class="progress progress-sm mb-g">
-                                <div class="progress-bar bg-primary-300" role="progressbar" style="width: 84%;" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                        <?php 
+                            foreach ($result_progress_bar as $key => $value) { ?>
+                                <div class="d-flex mt-2">
+                                    <?php echo $value['title']; ?>
+                                    <span class="d-inline-block ml-auto"><?php echo $value['val']; ?></span>
+                                </div>
+                                <div class="progress progress-sm mb-3">
+                                    <div class="progress-bar <?php echo $value['color']; ?>" role="progressbar" style="width: <?php echo $value['progress_value']; ?>%;" aria-valuenow="?php echo $value['progress_value']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            <?php }
+
+
+                            
+                        ?>
+                            
                         </div>
                     </div>
                 </div>
