@@ -193,13 +193,23 @@
                             </div>
                         <?php 
                             foreach ($result_progress_bar as $key => $value) { ?>
-                                <div class="d-flex mt-2">
-                                    <?php echo $value['title']; ?>
-                                    <span class="d-inline-block ml-auto"><?php echo $value['val']; ?></span>
-                                </div>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar <?php echo $value['color']; ?>" role="progressbar" style="width: <?php echo $value['progress_value']; ?>%;" aria-valuenow="?php echo $value['progress_value']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                    <div class="d-flex mt-2">
+                                        <?php foreach ($value as $key2 => $value2) {
+                                            if($key2 == 'title') { 
+                                                echo $value2;
+                                            } elseif($key2 == 'val') { ?>
+                                            <span class="d-inline-block ml-auto"><?php echo $value2; ?></span>
+                                        <?php }} ?>
+                                        
+                                    </div>
+                                    <div class="progress progress-sm mb-3">
+                                        <div class="progress-bar <?php echo $value['color']; ?>" role="progressbar" style="width: <?php echo $value['progress_value']; ?>%;" aria-valuenow="<?php echo $value['progress_value']; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    
+                                        
+                                        
+                                    
+                                
                             <?php }
 
 
@@ -215,7 +225,7 @@
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
                         <h2>
-                            Задание
+                            Задание №5
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
